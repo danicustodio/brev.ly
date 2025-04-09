@@ -1,0 +1,16 @@
+services:
+  pg:
+    image: bitnami/postgresql:latest
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRESQL_USERNAME=danicustodio
+      - POSTGRESQL_PASSWORD=techdeveloper
+      - POSTGRESQL_DATABASE=brevly
+    volumes:
+      - postgres_data:/bitnami/postgresql
+      - './docker:/docker-entrypoint-initdb.d'
+
+volumes:
+  postgres_data:
+    name: brevly-postgres-data
