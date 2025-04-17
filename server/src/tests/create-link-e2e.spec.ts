@@ -1,17 +1,19 @@
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import request from 'supertest'
-import { server } from '@/infra/http/server'
+import { app } from '@/infra/http/app'
 import { Link } from '@/domain/entities/link'
 import { env } from '@/env'
 import { generateUniqueAlias } from './utils/generate-unique-alias'
+import { closeDatabase } from '@/infra/database'
 
 describe('E2E - Create Link', () => {
   beforeAll(async () => {
-    await server.ready()
+    await app.ready()
   })
 
   afterAll(async () => {
-    await server.close()
+    await app.close()
+    await closeDatabase()
   })
 
   it('should create a link successfully', async () => {
@@ -20,7 +22,7 @@ describe('E2E - Create Link', () => {
       alias: generateUniqueAlias(),
     })
 
-    const response = await request(server.server).post('/links').send({
+    const response = await request(app.server).post('/links').send({
       url: link.url,
       alias: link.alias,
     })
