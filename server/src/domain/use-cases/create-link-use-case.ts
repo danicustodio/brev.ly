@@ -4,7 +4,7 @@ import { InvalidUrlException } from '../core/exceptions/invalid-url-exception'
 import { InvalidShortUrlException } from '../core/exceptions/invalid-shorturl-format'
 import { type Either, makeLeft, makeRight } from '../core/either'
 import { DuplicatedShortUrlException } from '../core/exceptions/duplicated-shorturl'
-import { ALIAS } from '../core/constants'
+import { isValidAlias } from '../core/utils/is-valid-alias'
 
 interface CreateLinkUseCaseRequest {
   url: string
@@ -18,21 +18,6 @@ type CreateLinkUseCaseResponse = Either<
 
 export class CreateLinkUseCase {
   constructor(private linksRepository: LinksRepository) {}
-
-  /**
-   * Validates if a alias is properly formatted
-   * @param alias The alias to validate
-   * @returns true if the alias is valid, false otherwise
-   */
-  private isValidAlias(alias: string): boolean {
-    // Only allow alphanumeric characters and hyphens
-    const validPattern = /^[a-zA-Z0-9-]+$/
-
-    const validLength =
-      alias.length >= ALIAS.min_length && alias.length <= ALIAS.max_length
-
-    return validPattern.test(alias) && validLength
-  }
 
   private isValidUrl(url: string): boolean {
     try {
@@ -51,7 +36,7 @@ export class CreateLinkUseCase {
       return makeLeft(new InvalidUrlException())
     }
 
-    if (!this.isValidAlias(alias)) {
+    if (!isValidAlias(alias)) {
       return makeLeft(new InvalidShortUrlException())
     }
 
