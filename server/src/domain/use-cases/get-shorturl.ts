@@ -41,6 +41,12 @@ export class GetShortUrlUseCase {
 
     await this.linksRepository.incrementAccessCount(link.id)
 
-    return makeRight({ link })
+    const updatedLink = await this.linksRepository.findByAlias(alias)
+
+    if (!updatedLink) {
+      return makeLeft(new LinkNotFoundException(alias))
+    }
+
+    return makeRight({ link: updatedLink })
   }
 }

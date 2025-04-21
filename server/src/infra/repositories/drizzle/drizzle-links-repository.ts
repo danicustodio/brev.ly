@@ -64,7 +64,6 @@ export class DrizzleLinksRepository implements LinksRepository {
   }
 
   async incrementAccessCount(id: string): Promise<void> {
-    // First, get the current link to increment its access count
     const result = await db
       .select()
       .from(schema.links)
@@ -78,7 +77,6 @@ export class DrizzleLinksRepository implements LinksRepository {
     const linkData = result[0]
     const newAccessCount = linkData.accessCount + 1
 
-    // Update the access count
     await db
       .update(schema.links)
       .set({ accessCount: newAccessCount })

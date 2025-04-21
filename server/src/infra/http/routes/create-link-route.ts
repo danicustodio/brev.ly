@@ -6,6 +6,7 @@ import {
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 import { DrizzleLinksRepository } from '@/infra/repositories/drizzle/drizzle-links-repository'
+import { linkHttpSchema } from '../presenters/link-presenter'
 
 export const createLinkRoute: FastifyPluginAsyncZod = async server => {
   server.post(
@@ -16,13 +17,7 @@ export const createLinkRoute: FastifyPluginAsyncZod = async server => {
         tags: ['links'],
         body: createLinkBodySchema,
         response: {
-          201: z.object({
-            id: z.string().uuid(),
-            url: z.string().url(),
-            accessCount: z.number(),
-            createdAt: z.date(),
-            shortUrl: z.string().url(),
-          }),
+          201: linkHttpSchema,
           400: z.object({
             message: z.string(),
             issues: z
