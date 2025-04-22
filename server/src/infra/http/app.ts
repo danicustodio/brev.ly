@@ -10,6 +10,8 @@ import {
 } from 'fastify-type-provider-zod'
 import { createLinkRoute } from './routes/create-link-route'
 import { deleteLinkRoute } from './routes/delete-link-route'
+import { getAllShortUrlsRoute } from './routes/get-all-shorturls-route'
+import { getShortUrlRoute } from './routes/get-shorturl-route'
 
 export const app = fastify()
 
@@ -47,3 +49,5 @@ app.register(fastifySwaggerUi, {
 // Register routes
 app.register(createLinkRoute)
 app.register(deleteLinkRoute)
+app.register(getAllShortUrlsRoute)
+app.register(getShortUrlRoute)
