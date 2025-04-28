@@ -1,17 +1,17 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { CreateLinkUseCase } from './create-link-use-case'
-import { InMemoryLinksRepository } from '@/infra/repositories/in-memory/in-memory-links-repository'
+import { MockLinksRepository } from '@/domain/mocks/repositories/mock-links-repository'
 import { isLeft, isRight } from '../core/either'
 import { InvalidUrlException } from '../core/exceptions/invalid-url-exception'
 import { InvalidShortUrlException } from '../core/exceptions/invalid-shorturl-format'
 import { DuplicatedShortUrlException } from '../core/exceptions/duplicated-shorturl'
 
 describe('Create Link Use Case', () => {
-  let linksRepository: InMemoryLinksRepository
+  let linksRepository: MockLinksRepository
   let sut: CreateLinkUseCase
 
   beforeEach(() => {
-    linksRepository = new InMemoryLinksRepository()
+    linksRepository = new MockLinksRepository()
     sut = new CreateLinkUseCase(linksRepository)
   })
 

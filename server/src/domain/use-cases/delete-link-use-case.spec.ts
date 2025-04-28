@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { DeleteLinkUseCase } from './delete-link-use-case'
-import { InMemoryLinksRepository } from '@/infra/repositories/in-memory/in-memory-links-repository'
+import { MockLinksRepository } from '@/domain/mocks/repositories/mock-links-repository'
 import { isLeft, isRight } from '../core/either'
 import { LinkNotFoundException } from '../core/exceptions/link-not-found-exception'
 import { InvalidShortUrlException } from '../core/exceptions/invalid-shorturl-format'
@@ -8,11 +8,11 @@ import { Link } from '../entities/link'
 import { ALIAS } from '../core/constants'
 
 describe('Delete Link Use Case', () => {
-  let linksRepository: InMemoryLinksRepository
+  let linksRepository: MockLinksRepository
   let sut: DeleteLinkUseCase
 
   beforeEach(() => {
-    linksRepository = new InMemoryLinksRepository()
+    linksRepository = new MockLinksRepository()
     sut = new DeleteLinkUseCase(linksRepository)
   })
 

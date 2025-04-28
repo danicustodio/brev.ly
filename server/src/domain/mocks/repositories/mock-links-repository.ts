@@ -1,7 +1,7 @@
 import type { Link } from '@/domain/entities/link'
 import type { LinksRepository } from '@/domain/repositories/links-repository'
 
-export class InMemoryLinksRepository implements LinksRepository {
+export class MockLinksRepository implements LinksRepository {
   private items: Link[] = []
 
   async create(link: Link): Promise<Link> {
@@ -16,6 +16,20 @@ export class InMemoryLinksRepository implements LinksRepository {
 
   async findAll(): Promise<Link[]> {
     return this.items
+  }
+
+  async findAllSQL(
+    searchQuery?: string
+  ): Promise<{ sql: string; params: unknown[] }> {
+    let sql = 'select "url", "alias", "access_count", "created_at" from "links"'
+    const params: unknown[] = []
+
+    if (searchQuery) {
+      sql += ' where "url" ilike $1'
+      params.push(`%${searchQuery}%`)
+    }
+
+    return { sql, params }
   }
 
   async delete(id: string): Promise<void> {

@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { GetAllShortUrlsUseCase } from './get-all-shorturls'
-import { InMemoryLinksRepository } from '@/infra/repositories/in-memory/in-memory-links-repository'
+import { MockLinksRepository } from '@/domain/mocks/repositories/mock-links-repository'
 import { Link } from '../entities/link'
 import type { LinksRepository } from '../repositories/links-repository'
 
@@ -9,7 +9,7 @@ describe('Get All ShortUrls Use Case', () => {
   let sut: GetAllShortUrlsUseCase
 
   beforeEach(() => {
-    linksRepository = new InMemoryLinksRepository()
+    linksRepository = new MockLinksRepository()
     sut = new GetAllShortUrlsUseCase(linksRepository)
   })
 
