@@ -12,6 +12,7 @@ import { createLinkRoute } from './routes/create-link-route'
 import { deleteLinkRoute } from './routes/delete-link-route'
 import { getAllShortUrlsRoute } from './routes/get-all-shorturls-route'
 import { getShortUrlRoute } from './routes/get-shorturl-route'
+import { exportLinksRoute } from './routes/export-links-route'
 
 export const app = fastify()
 
@@ -51,3 +52,4 @@ app.register(createLinkRoute)
 app.register(deleteLinkRoute)
 app.register(getAllShortUrlsRoute)
 app.register(getShortUrlRoute)
+app.register(exportLinksRoute)

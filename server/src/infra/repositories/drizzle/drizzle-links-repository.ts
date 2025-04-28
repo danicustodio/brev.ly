@@ -1,10 +1,11 @@
-import { Link } from '@/domain/entities/link'
+import { Link, type LinkProps } from '@/domain/entities/link'
 import type { LinksRepository } from '@/domain/repositories/links-repository'
 import { db } from '@/infra/database'
 import { schema } from '@/infra/database/schemas'
 import type { LinkRow } from '@/infra/database/schemas/links'
-import { eq } from 'drizzle-orm'
+import { eq, ilike } from 'drizzle-orm'
 
+export type LinkCSVRow = Required<LinkProps>
 export class DrizzleLinksRepository implements LinksRepository {
   async create(link: Link): Promise<Link> {
     await db.insert(schema.links).values({
@@ -57,6 +58,28 @@ export class DrizzleLinksRepository implements LinksRepository {
           linkData.id
         )
     )
+  }
+
+  async findAllSQL(searchQuery?: string) {
+    const { url, alias, accessCount, createdAt } = schema.links
+
+    const query = db
+      .select({
+        url,
+        alias,
+        accessCount,
+        createdAt,
+      })
+      .from(schema.links)
+
+    // Add search condition if searchQuery is provided
+    if (searchQuery) {
+      query.where(ilike(schema.links.url, `%${searchQuery}%`))
+    }
+
+    const { sql, params } = query.toSQL()
+
+    return { sql, params }
   }
 
   async delete(id: string): Promise<void> {

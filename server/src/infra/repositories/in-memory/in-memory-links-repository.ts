@@ -18,6 +18,20 @@ export class InMemoryLinksRepository implements LinksRepository {
     return this.items
   }
 
+  async findAllSQL(
+    searchQuery?: string
+  ): Promise<{ sql: string; params: unknown[] }> {
+    let sql = 'select "url", "alias", "access_count", "created_at" from "links"'
+    const params: unknown[] = []
+
+    if (searchQuery) {
+      sql += ' where "url" ilike $1'
+      params.push(`%${searchQuery}%`)
+    }
+
+    return { sql, params }
+  }
+
   async delete(id: string): Promise<void> {
     const itemIndex = this.items.findIndex(item => item.id === id)
 
