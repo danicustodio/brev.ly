@@ -5,7 +5,6 @@ import { type Either, makeRight } from '@/domain/core/either'
 import type { StorageService } from '@/domain/services/storage-service'
 import type { DatabaseCursorService } from '@/domain/services/database-cursor-service'
 import type { CSVExportService } from '@/domain/services/csv-export-service'
-import { env } from 'node:process'
 import type { Link } from '../entities/link'
 
 const BATCH_SIZE = 50
@@ -23,31 +22,29 @@ export class ExportLinksUseCase {
     private databaseCursorService: DatabaseCursorService,
     private csvExportService: CSVExportService,
     private storageService: StorageService
-  ) {
-    this.transformLinkToCSVRow = this.transformLinkToCSVRow.bind(this)
-    this.oneByOneTransform = this.oneByOneTransform.bind(this)
-  }
+  ) {}
 
-  private transformLinkToCSVRow(link: Link) {
-    return {
-      ...link,
-      short_url: `${env.BREVLY_BASE_URL}/${link.alias}`,
-    }
-  }
+  private readonly columns: Array<{ key: string; header: string }> = [
+    { key: 'url', header: 'Original URL' },
+    { key: 'alias', header: 'Short URL' },
+    { key: 'access_count', header: 'Access Count' },
+    { key: 'created_at', header: 'Creation Date' },
+  ]
 
-  private oneByOneTransform() {
-    const self = this
-
+  private oneByOneTransform = () => {
     return new Transform({
       objectMode: true,
       transform(chunks: Link[], encoding, callback) {
         for (const chunk of chunks) {
-          const data = self.transformLinkToCSVRow(chunk)
-          this.push(data)
+          this.push(chunk)
         }
         callback()
       },
     })
+  }
+
+  private formatDateForFilename = (date: Date) => {
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
   }
 
   async execute({
@@ -57,13 +54,6 @@ export class ExportLinksUseCase {
   > {
     const { sql, params } = await this.linksRepository.findAllSQL(searchQuery)
 
-    const columns = [
-      { key: 'url', header: 'Original URL' },
-      { key: 'short_url', header: 'Short URL' },
-      { key: 'access_count', header: 'Access Count' },
-      { key: 'created_at', header: 'Creation Date' },
-    ]
-
     const cursor = this.databaseCursorService.createCursor(
       sql,
       params,
@@ -72,7 +62,7 @@ export class ExportLinksUseCase {
 
     const uploadToStorageStream = new PassThrough()
 
-    const csv = this.csvExportService.createCSV(columns)
+    const csv = this.csvExportService.createCSV(this.columns)
 
     const csvToStorageMainStreamPipepline = pipeline(
       cursor,
@@ -81,7 +71,7 @@ export class ExportLinksUseCase {
       uploadToStorageStream
     )
 
-    const fileName = `${new Date().toISOString()}.csv`
+    const fileName = `${this.formatDateForFilename(new Date())}.csv`
 
     const uploadToStorage = this.storageService.uploadFile({
       fileName,
