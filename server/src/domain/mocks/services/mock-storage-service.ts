@@ -1,13 +1,14 @@
-import type { Readable } from 'node:stream'
 import { env } from '@/env'
-import type { StorageService } from '@/domain/services/storage-service'
+import type {
+  StorageService,
+  UploadFileInput,
+  UploadFileOutput,
+} from '@/domain/services/storage-service'
 
 export class MockStorageService implements StorageService {
-  async uploadFile(
-    fileName: string,
-    contentType: string,
-    content: Readable
-  ): Promise<{ url: string }> {
+  async uploadFile(props: UploadFileInput): Promise<UploadFileOutput> {
+    const { content, fileName } = props
+
     for await (const _ of content) {
       // Do nothing with the chunks, just consume the stream
     }

@@ -4,7 +4,7 @@ import type { LinksRepository } from '../repositories/links-repository'
 import { type Either, makeRight } from '@/domain/core/either'
 import type { StorageService } from '@/domain/services/storage-service'
 import type { DatabaseCursorService } from '@/domain/services/database-cursor-service'
-import type { CSVExportService } from '@/domain/services/csv-export-service'
+import type { CSVService } from '@/domain/services/csv-service'
 import type { Link } from '../entities/link'
 
 const BATCH_SIZE = 50
@@ -20,7 +20,7 @@ export class ExportLinksUseCase {
   constructor(
     private linksRepository: LinksRepository,
     private databaseCursorService: DatabaseCursorService,
-    private csvExportService: CSVExportService,
+    private CSVService: CSVService,
     private storageService: StorageService
   ) {}
 
@@ -62,7 +62,7 @@ export class ExportLinksUseCase {
 
     const uploadToStorageStream = new PassThrough()
 
-    const csv = this.csvExportService.createCSV(this.columns)
+    const csv = this.CSVService.createCSV(this.columns)
 
     const csvToStorageMainStreamPipepline = pipeline(
       cursor,

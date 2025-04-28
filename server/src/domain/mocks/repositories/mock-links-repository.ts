@@ -1,7 +1,7 @@
 import type { Link } from '@/domain/entities/link'
 import type { LinksRepository } from '@/domain/repositories/links-repository'
 
-export class InMemoryLinksRepository implements LinksRepository {
+export class MockLinksRepository implements LinksRepository {
   private items: Link[] = []
 
   async create(link: Link): Promise<Link> {

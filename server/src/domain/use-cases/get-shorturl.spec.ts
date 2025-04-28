@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { GetShortUrlUseCase } from './get-shorturl'
-import { InMemoryLinksRepository } from '@/infra/repositories/in-memory/in-memory-links-repository'
+import { MockLinksRepository } from '@/domain/mocks/repositories/mock-links-repository'
 import { isLeft, isRight } from '../core/either'
 import { InvalidShortUrlException } from '../core/exceptions/invalid-shorturl-format'
 import { LinkNotFoundException } from '../core/exceptions/link-not-found-exception'
@@ -12,7 +12,7 @@ describe('Get ShortUrl Use Case', () => {
   let sut: GetShortUrlUseCase
 
   beforeEach(() => {
-    linksRepository = new InMemoryLinksRepository()
+    linksRepository = new MockLinksRepository()
     sut = new GetShortUrlUseCase(linksRepository)
   })
 

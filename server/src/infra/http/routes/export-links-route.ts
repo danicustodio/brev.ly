@@ -1,7 +1,7 @@
 import { ExportLinksUseCase } from '@/domain/use-cases/export-links-use-case'
 import { DrizzleLinksRepository } from '@/infra/repositories/drizzle/drizzle-links-repository'
 import { PostgresCursorService } from '@/infra/services/postgres-cursor-service'
-import { NodeCSVExportService } from '@/infra/services/node-csv-export-service'
+import { NodeCSVService } from '@/infra/services/node-csv-export-service'
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 import {
@@ -38,13 +38,13 @@ export const exportLinksRoute: FastifyPluginAsyncZod = async server => {
     ) => {
       const linksRepository = new DrizzleLinksRepository()
       const databaseCursorService = new PostgresCursorService()
-      const csvExportService = new NodeCSVExportService()
+      const CSVService = new NodeCSVService()
       const storageService = new R2StorageService()
 
       const exportLinksUseCase = new ExportLinksUseCase(
         linksRepository,
         databaseCursorService,
-        csvExportService,
+        CSVService,
         storageService
       )
 
