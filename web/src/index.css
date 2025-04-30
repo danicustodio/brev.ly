@@ -4,6 +4,8 @@
   --font-sans: 'Open Sans', ui-sans-serif, system-ui, sans-serif;
   --main-max-width: 61.25rem;
   --main-max-height: 24.75rem;
+  --new-link-min-height: 19.75rem;
+  --new-link-min-height-lg: 21.25rem;
 
 
   /* Colors */
@@ -48,7 +50,6 @@
   .brevly-text-xs {
     font-size: 0.625rem;
     line-height: 0.875rem;
-    font-weight: normal;
     text-transform: uppercase;
   }
 }
@@ -56,4 +57,5 @@
 
 :root {
   font-family: var(--font-sans);
+  box-sizing: border-box;
 }
