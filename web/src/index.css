@@ -59,3 +59,23 @@
   font-family: var(--font-sans);
   box-sizing: border-box;
 }
+
+
+.scrollbar-custom {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: var(--color-blue-dark) transparent; /* thumb and track */
+}
+
+.scrollbar-custom::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background-color: var(--color-blue-dark);
+  border-radius: 6px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+  background: transparent;
+}
