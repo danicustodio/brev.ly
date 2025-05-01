@@ -1,34 +1,130 @@
-import Logo from './assets/Logo.svg'
-import { Button } from './components/Button'
-import { Input } from './components/Input'
+import { LinkList } from './components/link-list/link-list'
+import { Logo } from './components/logo'
+import { NewLink } from './components/new-link'
+
+const MOCK_LINKS = [
+  {
+    id: '1',
+    shortUrl: 'brev.ly/Portfolio-Dev',
+    alias: 'Portfolio-Dev',
+    originalUrl: 'devsite.portfolio.com.br/developer',
+    accessCount: 30,
+    createdAt: new Date(),
+  },
+  {
+    id: '2',
+    shortUrl: 'brev.ly/Linkedin-Profile',
+    alias: 'Linkedin-Profile',
+    originalUrl: 'linkedin.com/in/myprofile',
+    accessCount: 15,
+    createdAt: new Date(),
+  },
+  {
+    id: '3',
+    shortUrl: 'brev.ly/three',
+    alias: 'Linkedin-Profile',
+    originalUrl: 'linkedin.com/in/myprofile',
+    accessCount: 15,
+    createdAt: new Date(),
+  },
+  {
+    id: '4',
+    shortUrl: 'brev.ly/four',
+    alias: 'Linkedin-Profile',
+    originalUrl: 'linkedin.com/in/myprofile',
+    accessCount: 15,
+    createdAt: new Date(),
+  },
+  {
+    id: '5',
+    shortUrl: 'brev.ly/five',
+    alias: 'Linkedin-Profile',
+    originalUrl: 'linkedin.com/in/myprofile',
+    accessCount: 15,
+    createdAt: new Date(),
+  },
+  {
+    id: '6',
+    shortUrl: 'brev.ly/six',
+    alias: 'Linkedin-Profile',
+    originalUrl: 'linkedin.com/in/myprofile',
+    accessCount: 15,
+    createdAt: new Date(),
+  },
+  {
+    id: '1',
+    shortUrl: 'brev.ly/Portfolio-Dev',
+    alias: 'Portfolio-Dev',
+    originalUrl: 'devsite.portfolio.com.br/developer',
+    accessCount: 30,
+    createdAt: new Date(),
+  },
+  {
+    id: '2',
+    shortUrl: 'brev.ly/Linkedin-Profile',
+    alias: 'Linkedin-Profile',
+    originalUrl: 'linkedin.com/in/myprofile',
+    accessCount: 15,
+    createdAt: new Date(),
+  },
+  {
+    id: '3',
+    shortUrl: 'brev.ly/three',
+    alias: 'Linkedin-Profile',
+    originalUrl: 'linkedin.com/in/myprofile',
+    accessCount: 15,
+    createdAt: new Date(),
+  },
+  {
+    id: '4',
+    shortUrl: 'brev.ly/four',
+    alias: 'Linkedin-Profile',
+    originalUrl: 'linkedin.com/in/myprofile',
+    accessCount: 15,
+    createdAt: new Date(),
+  },
+  {
+    id: '5',
+    shortUrl: 'brev.ly/five',
+    alias: 'Linkedin-Profile',
+    originalUrl: 'linkedin.com/in/myprofile',
+    accessCount: 15,
+    createdAt: new Date(),
+  },
+  {
+    id: '6',
+    shortUrl: 'brev.ly/six',
+    alias: 'Linkedin-Profile',
+    originalUrl: 'linkedin.com/in/myprofile',
+    accessCount: 15,
+    createdAt: new Date(),
+  },
+]
 
 function App() {
   return (
-    <div className="h-dvh flex align-middle justify-center bg-[var(--color-gray-200)]">
-      <main className="w-full max-w-[var(--main-max-width)] h-full max-h-[var(--main-max-height)] mt-8 lg:mt-16 flex flex-col">
-        <img
-          src={Logo}
-          alt="brev.ly logo"
-          className="h-6 w-24 ml-[-4px] self-center lg:self-start mb-6 lg:mb-8"
-        />
+    <div className="min-h-dvh flex flex-col bg-[var(--color-gray-200)] py-8 px-4">
+      <div className="flex justify-center flex-1">
+        <main className="w-full max-w-[var(--main-max-width)] flex flex-col flex-1">
+          <div className="flex justify-center mb-6 lg:justify-start">
+            <Logo />
+          </div>
 
-        <div className="flex flex-col lg:flex-row justify-between gap-3 lg:gap-5 w-full px-3 lg:px-0">
-          <div className="bg-[var(--color-white)] w-full max-w-96 min-h-[var(--new-link-min-height)] lg:min-h-[var(--new-link-min-height-lg)] rounded-lg p-6 lg:p-8 my-auto">
-            <div className="flex flex-col gap-5 lg:gap-6">
-              <h2 className="brevly-text-lg">Novo Link</h2>
-              <Input label="Link Original" placeholder="www.exemplo.com.br" />
-              <Input label="Link encurtado" prefix="brev.ly/" />
-              <Button>
-                <p>Salvar link</p>
-              </Button>
+          <div className="flex flex-col gap-3 flex-1 lg:flex-row">
+            <div className="lg:min-w-96">
+              <NewLink />
+            </div>
+
+            <div className="flex-1 min-h-0 overflow-auto">
+              <LinkList
+                links={MOCK_LINKS}
+                onCopy={id => console.log(id)}
+                onDelete={alias => console.log(alias)}
+              />
             </div>
           </div>
-
-          <div className="bg-[var(--color-white)] w-full h-60 rounded-lg">
-            list
-          </div>
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   )
 }
