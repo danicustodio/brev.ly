@@ -1,5 +1,5 @@
 import { Warning } from '@phosphor-icons/react'
-import { useState, useRef, useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { FC, InputHTMLAttributes, ReactNode } from 'react'
 import { tv } from 'tailwind-variants'
 
@@ -81,7 +81,7 @@ export const Input: FC<InputProps> = ({
           className={inputVariants({ state })}
           style={
             prefix
-              ? { paddingLeft: `calc(${prefixWidth}px)` }
+              ? { paddingLeft: `calc(${prefixWidth + 2}px)` }
               : { paddingLeft: '1rem' }
           }
         />

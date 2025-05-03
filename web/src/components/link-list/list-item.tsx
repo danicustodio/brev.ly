@@ -1,26 +1,30 @@
 import { Copy, Trash } from '@phosphor-icons/react'
+import type { Link } from '../../api/types'
 import { Button } from '../ui/button'
-import type { Link } from './link-list'
 
 interface ListItemProps {
   link: Link
-  onCopy: (id: string) => void
+  onCopy: (link: Link) => void
   onDelete: (alias: string) => void
 }
 
 export function ListItem({ link, onCopy, onDelete }: ListItemProps) {
-  const { shortUrl, originalUrl, accessCount, id, alias } = link
+  const { shortUrl, url, accessCount, id, alias } = link
   const access = accessCount === 1 ? 'acesso' : 'acessos'
 
   return (
     <div className="flex justify-between items-center gap-4 py-3 border-t border-[var(--color-gray-200)]">
-      <div className="flex flex-col gap-1 shrink min-w-0">
-        <p className="brevly-text-md text-[var(--color-blue-base)] truncate">
-          {shortUrl}
-        </p>
-        <p className="brevly-text-sm text-[var(--color-gray-500)] truncate">
-          {originalUrl}
-        </p>
+      <div className="shrink min-w-0">
+        <a href={`/${alias}`} target="_blank" rel="noopener noreferrer">
+          <div className="flex flex-col gap-1">
+            <p className="brevly-text-md text-[var(--color-blue-base)] truncate">
+              {shortUrl}
+            </p>
+            <p className="brevly-text-sm text-[var(--color-gray-500)] truncate">
+              {url}
+            </p>
+          </div>
+        </a>
       </div>
 
       <div className="flex items-center gap-4 shrink-0">
@@ -33,7 +37,7 @@ export function ListItem({ link, onCopy, onDelete }: ListItemProps) {
             variant="secondary"
             icon={<Copy size={16} />}
             className="text-[var(--color-gray-600)]"
-            onClick={() => onCopy(id)}
+            onClick={() => onCopy(link)}
           />
           <Button
             variant="secondary"
