@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest'
-import { GetShortUrlUseCase } from './get-shorturl'
+import { GetShortUrlUseCase } from './get-shorturl-use-case'
 import { MockLinksRepository } from '@/domain/mocks/repositories/mock-links-repository'
 import { isLeft, isRight } from '../core/either'
 import { InvalidShortUrlException } from '../core/exceptions/invalid-shorturl-format'
@@ -34,7 +34,7 @@ describe('Get ShortUrl Use Case', () => {
   })
 
   it('should return InvalidShortUrlException for invalid alias', async () => {
-    const result = await sut.execute({ alias: 'ab' })
+    const result = await sut.execute({ alias: '' })
     expect(isLeft(result)).toBe(true)
     if (isLeft(result)) {
       expect(result.left).toBeInstanceOf(InvalidShortUrlException)

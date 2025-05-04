@@ -1,7 +1,7 @@
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 import { GetAllShortUrlsController } from '../controllers/get-all-shorturls-controller'
-import { GetAllShortUrlsUseCase } from '@/domain/use-cases/get-all-shorturls'
+import { GetAllShortUrlsUseCase } from '@/domain/use-cases/get-all-shorturls-use-case'
 import { DrizzleLinksRepository } from '@/infra/repositories/drizzle/drizzle-links-repository'
 import { linkHttpSchema } from '../presenters/link-presenter'
 

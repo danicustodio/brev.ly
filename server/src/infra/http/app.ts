@@ -32,7 +32,10 @@ app.setErrorHandler((error, request, reply) => {
   })
 })
 
-app.register(fastifyCors, { origin: '*' })
+app.register(fastifyCors, {
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+})
 
 app.register(fastifySwagger, {
   openapi: {
@@ -47,7 +50,6 @@ app.register(fastifySwaggerUi, {
   routePrefix: '/docs',
 })
 
-// Register routes
 app.register(createLinkRoute)
 app.register(deleteLinkRoute)
 app.register(getAllShortUrlsRoute)

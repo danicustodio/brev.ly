@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest'
-import { GetAllShortUrlsUseCase } from './get-all-shorturls'
+import { GetAllShortUrlsUseCase } from './get-all-shorturls-use-case'
 import { MockLinksRepository } from '@/domain/mocks/repositories/mock-links-repository'
 import { Link } from '../entities/link'
 import type { LinksRepository } from '../repositories/links-repository'

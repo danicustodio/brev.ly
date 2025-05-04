@@ -1,4 +1,4 @@
-import type { GetAllShortUrlsUseCase } from '@/domain/use-cases/get-all-shorturls'
+import type { GetAllShortUrlsUseCase } from '@/domain/use-cases/get-all-shorturls-use-case'
 import type { FastifyRequest, FastifyReply } from 'fastify'
 import { linkPresenter } from '../presenters/link-presenter'
 

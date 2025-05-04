@@ -5,6 +5,7 @@ import { isLeft, isRight } from '../core/either'
 import { InvalidUrlException } from '../core/exceptions/invalid-url-exception'
 import { InvalidShortUrlException } from '../core/exceptions/invalid-shorturl-format'
 import { DuplicatedShortUrlException } from '../core/exceptions/duplicated-shorturl'
+import { ALIAS } from '../core/constants'
 
 describe('Create Link Use Case', () => {
   let linksRepository: MockLinksRepository
@@ -53,15 +54,15 @@ describe('Create Link Use Case', () => {
     }
   })
 
-  it('should validate alias length between 3 and 32 characters', async () => {
+  it(`should validate alias length between ${ALIAS.min_length} and ${ALIAS.max_length} characters`, async () => {
     const tooShort = await sut.execute({
       url: 'https://example.com',
-      alias: 'ab',
+      alias: '',
     })
 
     const tooLong = await sut.execute({
       url: 'https://example.com',
-      alias: 'a'.repeat(33),
+      alias: 'a'.repeat(ALIAS.max_length + 1),
     })
 
     expect(isLeft(tooShort)).toBe(true)

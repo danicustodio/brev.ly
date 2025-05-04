@@ -4,7 +4,7 @@ import {
   GetShortUrlController,
   getShortUrlParamsSchema,
 } from '../controllers/get-shorturl-controller'
-import { GetShortUrlUseCase } from '@/domain/use-cases/get-shorturl'
+import { GetShortUrlUseCase } from '@/domain/use-cases/get-shorturl-use-case'
 import { DrizzleLinksRepository } from '@/infra/repositories/drizzle/drizzle-links-repository'
 import { linkHttpSchema } from '../presenters/link-presenter'
 

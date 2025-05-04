@@ -72,7 +72,6 @@ export class DrizzleLinksRepository implements LinksRepository {
       })
       .from(schema.links)
 
-    // Add search condition if searchQuery is provided
     if (searchQuery) {
       query.where(ilike(schema.links.url, `%${searchQuery}%`))
     }

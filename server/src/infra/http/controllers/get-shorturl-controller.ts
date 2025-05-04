@@ -1,6 +1,6 @@
 import { isRight, unwrapEither } from '@/domain/core/either'
 import { ALIAS } from '@/domain/core/constants'
-import type { GetShortUrlUseCase } from '@/domain/use-cases/get-shorturl'
+import type { GetShortUrlUseCase } from '@/domain/use-cases/get-shorturl-use-case'
 import type { FastifyRequest, FastifyReply } from 'fastify'
 import { linkPresenter } from '../presenters/link-presenter'
 import { z } from 'zod'
