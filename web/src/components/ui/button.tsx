@@ -1,5 +1,5 @@
-import { tv } from 'tailwind-variants'
 import type { ButtonHTMLAttributes, FC, ReactNode } from 'react'
+import { tv } from 'tailwind-variants'
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary'
