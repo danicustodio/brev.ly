@@ -9,16 +9,17 @@ services:
       - POSTGRESQL_DATABASE=brevly
     volumes:
       - postgres_data:/bitnami/postgresql
-      - './docker:/docker-entrypoint-initdb.d'
+      - './server/docker:/docker-entrypoint-initdb.d'
 
   server:
-    build: .
+    build:
+      context: ./server
     depends_on:
       - pg
     environment:
       - NODE_ENV=production
       - PORT=3333
-      - BREVLY_BASE_URL=http://localhost:3333
+      - BREVLY_BASE_URL=http://localhost:4173
       - DATABASE_URL=postgresql://danicustodio:techdeveloper@pg:5432/brevly
       - CLOUDFLARE_ACCOUNT_ID=
       - CLOUDFLARE_ACCESS_KEY_ID=
@@ -27,6 +28,18 @@ services:
       - CLOUDFLARE_PUBLIC_URL=
     ports:
       - '3333:3333'
+    restart: unless-stopped
+
+  web:
+    build:
+      context: ./web
+    depends_on:
+      - server
+    environment:
+      - NODE_ENV=production
+      - VITE_API_URL=http://localhost:3333
+    ports:
+      - '4173:4173'
     restart: unless-stopped
 
 volumes:

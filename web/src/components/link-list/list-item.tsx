@@ -9,7 +9,7 @@ interface ListItemProps {
 }
 
 export function ListItem({ link, onCopy, onDelete }: ListItemProps) {
-  const { shortUrl, url, accessCount, id, alias } = link
+  const { shortUrl, url, accessCount, alias } = link
   const access = accessCount === 1 ? 'acesso' : 'acessos'
 
   return (
