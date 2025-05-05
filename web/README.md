@@ -1,5 +1,7 @@
 # 🔗 Brev.ly - Front-end
 
+Frontend do Brev.ly, uma aplicação SPA desenvolvida em React e Vite para encurtamento e gerenciamento de URLs.
+
 ## 🚀 Funcionalidades e Regras
 
 - [x]  Deve ser possível criar um link
@@ -13,6 +15,42 @@
 
 Regras específicas para o front-end:
 
-- [x]  É obrigatória a criação de uma aplicação React no formato SPA utilizando o Vite como `bundler`;
-- [x]  Trabalhe na boa experiência ao usuário (`empty state`, ícones de carregamento, bloqueio de ações a depender do estado da aplicação);
-- [x]  Foco na responsividade: essa aplicação deve ter um bom uso tanto em desktops quanto em celulares.
+- [x]  É obrigatória a criação de uma aplicação React no formato SPA utilizando o Vite como `bundler`
+- [x]  Foco na boa experiência do usuário (`empty state`, ícones de carregamento, bloqueio de ações conforme o estado da aplicação)
+- [x]  Responsividade: a aplicação deve funcionar bem em desktops e celulares
+
+## 🛠️ Tecnologias
+
+- React
+- Vite
+- TypeScript
+
+## 🚀 Como executar
+
+1. Copie o arquivo de variáveis de ambiente de exemplo e configure conforme necessário:
+
+```bash
+cp .env.example .env
+```
+
+2. Instale as dependências:
+
+```bash
+pnpm install
+```
+
+3. Inicie a aplicação em modo desenvolvimento:
+
+```bash
+pnpm dev
+```
+
+Acesse em [http://localhost:5173](http://localhost:5173)
+
+## 🤝 Contribuição
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou pull requests.
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT.

@@ -1,5 +1,7 @@
 # 🔗 Brev.ly - API
 
+API do Brev.ly, responsável pelo encurtamento de URLs, gerenciamento e exportação de links. Desenvolvida em Node.js com TypeScript e Fastify.
+
 ## 🚀 Funcionalidades e Regras
 
 - [x]  Deve ser possível criar um link
@@ -37,7 +39,7 @@ O projeto utiliza PostgreSQL como banco de dados, configurado via Docker, e Driz
 docker-compose up -d
 ```
 
-Isso irá iniciar um container PostgreSQL na porta 5432
+Isso irá iniciar um container PostgreSQL na porta 5432.
 
 ## 🚀 Como executar
 
@@ -48,3 +50,11 @@ Isso irá iniciar um container PostgreSQL na porta 5432
 5. Execute as migrações com `pnpm db:migrate`
 6. Inicie o servidor com `pnpm dev`
 7. Acesse a documentação da API em `http://localhost:3333/docs`
+
+## 🧪 Testes
+
+Para rodar os testes automatizados:
+
+```bash
+pnpm test
+```
