@@ -65,7 +65,7 @@ export const useLinksStore = create<LinksState>()(
           const newLink = await linkServices.create(data)
 
           set(state => ({
-            links: [...state.links, newLink],
+            links: [newLink, ...state.links],
             isRefetching: false,
           }))
 

@@ -3,7 +3,7 @@ import type { LinksRepository } from '@/domain/repositories/links-repository'
 import { db } from '@/infra/database'
 import { schema } from '@/infra/database/schemas'
 import type { LinkRow } from '@/infra/database/schemas/links'
-import { eq, ilike } from 'drizzle-orm'
+import { desc, eq, ilike } from 'drizzle-orm'
 
 export type LinkCSVRow = Required<LinkProps>
 export class DrizzleLinksRepository implements LinksRepository {
@@ -44,7 +44,10 @@ export class DrizzleLinksRepository implements LinksRepository {
   }
 
   async findAll(): Promise<Link[]> {
-    const result = await db.select().from(schema.links)
+    const result = await db
+      .select()
+      .from(schema.links)
+      .orderBy(fields => desc(fields.id))
 
     return result.map(
       (linkData: LinkRow) =>
