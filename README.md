@@ -19,12 +19,18 @@ O projeto envolve tanto o frontend quanto o backend, com foco em boas práticas 
 
 ## 🚀 Como começar
 
+### Pré-requisitos
+
+- Node.js (v18+)
+- pnpm
+- Docker (para o banco de dados PostgreSQL)
+
 ### Executando tudo com Docker Compose
 
 Você pode rodar toda a aplicação (backend, frontend e banco de dados) usando o arquivo `docker-compose.yml` na raiz do projeto.
 
 > [!IMPORTANT]
-> As variáveis devem ser definidas diretamente no arquivo `docker-compose.yml`. Não é necessário criar arquivos `.env` nos diretórios `server/` ou `web/` para rodar via Docker Compose.
+> Defina as variáveis do cloudflare diretamente no arquivo `docker-compose.yml`
 
 Para iniciar, basta rodar:
 
@@ -32,15 +38,18 @@ Para iniciar, basta rodar:
 docker-compose up -d
 ```
 
+Copie as variáveis de exemplo e execute as migrações do banco
+```bash
+cd server
+pnpm install
+cp .env.example .env
+pnpm db:migrate
+```
+
 - O backend estará disponível em [http://localhost:3333](http://localhost:3333)
-- O frontend estará disponível em [http://localhost:4173](http://localhost:5173)
+- O frontend estará disponível em [http://localhost:4173](http://localhost:4173)
 - A documentação da API estará em [http://localhost:3333/docs](http://localhost:3333/docs)
 
-### Pré-requisitos (para rodar manualmente)
-
-- Node.js (v18+)
-- pnpm
-- Docker (para o banco de dados PostgreSQL)
 
 ### Backend
 

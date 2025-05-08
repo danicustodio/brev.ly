@@ -46,11 +46,3 @@ pnpm dev
 ```
 
 Acesse em [http://localhost:5173](http://localhost:5173)
-
-## 🤝 Contribuição
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou pull requests.
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT.
